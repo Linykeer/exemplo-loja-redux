@@ -1,9 +1,11 @@
 import React from 'react';
 import { MdRemoveCircleOutline, MdAddCircleOutline, MdDelete } from 'react-icons/md';
 
+import { connect } from 'react-redux';
+
 import { Container, ProductTable, Total } from './styles';
 
-function Cart() {
+function Cart({cart}) {
   return (
     <Container>
       <ProductTable>
@@ -17,14 +19,15 @@ function Cart() {
            </tr>
         </thead>
         <tbody>
-          <tr>
+         {cart.map(product => (
+            <tr>
             <td>
-              <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/c67a81869c2f4fd68479a993013f6ee2_9366/Tenis_Run_80s_Preto_F34451_01_standard.jpg" 
-                   alt="Tenis" />
+              <img src={product.image} 
+                   alt={product.title} />
             </td>
             <td>
-              <strong>Tênis muito massa</strong>
-              <span>R$120,00</span>
+              <strong>{product.title}</strong>
+              <span>{product.priceFormatted}</span>
             </td>
             <td>
               <div>
@@ -32,7 +35,7 @@ function Cart() {
                   <MdRemoveCircleOutline size={20} color="#7159c1" />
                </button>
 
-               <input type="number" readOnly value={2} />
+               <input type="number" readOnly value={product.amount} />
 
                <button type="button">
                   <MdAddCircleOutline size={20} color="#7159c1" />
@@ -48,6 +51,7 @@ function Cart() {
               </button>
             </td>
           </tr>
+         ))}
         </tbody>
       </ProductTable>
       <footer>
@@ -62,4 +66,8 @@ function Cart() {
   )
 }
 
-export default Cart;
+const mapStateToProps = state => ({
+  cart: state.cart,
+})
+
+export default connect(mapStateToProps)(Cart) ;

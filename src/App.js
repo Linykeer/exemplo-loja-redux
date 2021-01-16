@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
+import './config/reactotronConfig';
 import GlobalStyle from './styles/global'
 import Header from './components/Header';
+
 
 import { Provider } from 'react-redux'
 import store from './store/index'
